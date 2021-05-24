@@ -10,10 +10,143 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-</head>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.1/chart.js"></script>
+  </head>
+
 <body>
+ 
   <app-root></app-root>
  
+<script>
+  matriz2 = {};
+    function readFile2(event) {
+    
+      const archivoCapturado = event.target.files[0]
+      let reader = new FileReader();
+
+      let dat2 = reader.readAsText(archivoCapturado);
+      reader.onload = function (e) {
+      let dat = reader.result;
+ 
+      let arr = [];
+      arr = dat.split('\n')
+      let arregloText = arr.toString();
+      
+      var arregloText2 = arregloText.replace(/\n|\r/g, "");
+      let arr_d = [];
+      arr_d = arregloText2.split(',')
+
+      let columnas = [];
+
+      columnas = arr_d[0].split('|');
+      console.log(columnas);
+ 
+      let llenar = [];
+      var long = arr_d.length
+      for (var f = 1; f < long; f++) {
+        llenar.push(arr_d[f].split('|'));
+      };
+      let filas = [];
+      filas = llenar;
+      //console.log(filas);
+      let matriz = [];
+
+      var j = -1;
+      var num_filas = filas.length;
+      resultado = {};
+      let Dat = {};
+      console.log(filas);
+      var iteracion = columnas.length * num_filas;
+      let contador = 0;
+      for (var i = 0; i < num_filas; i++) {
+        let dato = "";
+        for (var j = 0; j < columnas.length; j++) {
+          for (const element of filas) {
+            /*dato = element[0];*/
+            console.log(element[j]);/*
+            contador = contador++;*/
+            resultado[columnas[j]] = element[j];
+          }
+          matriz2[i] = resultado;
+        };
+       // console.log(matriz2);   
+  
+    };
+   // console.log(matriz2);
+
+  };
+
+  reader.onerror = function () {
+    console.log(reader.error);
+  };
+
+}
+
+function CargaDat(){
+ /* rest = resultado.toString;
+  console.log(rest);
+ //let carga = document.getElementById("tabla").innerHTML += '<tbody><td>' + matriz2.ID + '</td><td>' + matriz2.PLACA + '</td><td>' + matriz2.DNI + '</td><td>' + matriz2.TRIPS + '</td><td>' + matriz2.PRODUCTID + '</td></tbody>';
+/* rest = [];
+ rest = matriz2;*/
+  //Dattable(matriz2);
+  /*
+  let stringTabla = "<tr><th scope='col'>ID</th><th scope='col'>PLACA</th><th scope='col'>DNI</th><th scope='col'>TRIPS</th><th scope='col'>PRODUCT ID</th></tr>"
+  for (let eleme of resultado){
+    let fil = "<tr><td>"
+    fil += eleme.ID;
+    fil += "</td>"
+
+    fil += "<td>"
+    fil += eleme.PLACA;
+    fil += "</td>"
+
+    fil += "<td>"
+    fil += eleme.DNI;
+    fil += "</td></tr>";
+
+  }
+  stringTabla += fil;
+  return stringTabla;
+ 
+   */
+   graficar(matriz2);
+
+};
+//document.getElementById("tabla").innerHTML = CargaDat();
+
+function graficar(datos){
+  console.log(datos);
+        const chartLable = ['ID','PLACA','DNI','TRIPS','PRODUCTID'];
+        const chartDetails = [2,4,13,9,5];
+        
+        const canvas = document.getElementById('myChart').getContext("2d");
+        //const ctx  = canvas.getContext('2d');
+        //const ctx: CanvasRenderingContext2D = canvas.getContext('2d')!;
+        //var Chart = require('chart.js');
+        const myChart = new Chart(canvas, {
+          type: 'bar',
+          data: {
+            labels: chartLable,
+            datasets: [{
+              label: 'Estadisticas viajes',
+              data: datos,
+              backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+              ],
+              borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+              ],
+              borderWidth: 1
+            }]
+          }
+        });
+      }
+  </script>
+
   
 </body>
 </html>

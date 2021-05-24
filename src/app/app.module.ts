@@ -5,7 +5,8 @@ import { AppComponent } from './app.component';
 import { GraficoComponent } from './components/grafico/grafico.component';
 import {MatTableModule} from '@angular/material/table';
 import { HttpClientModule } from '@angular/common/http';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+//import { MatInputModule, MatPaginatorModule, MatTableModule,  MatSortModule, MatPaginatorIntl } from '@angular/material/table';';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,9 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     MatTableModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule 
+
   ],
   providers: [],
   bootstrap: [AppComponent]
